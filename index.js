@@ -3,7 +3,6 @@ const cors = require("cors")
 
 const app = express()
 const port = 8001
-//added line
 
 app.use(express.json())
 
