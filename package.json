@@ -1,0 +1,24 @@
+{
+  "name": "movies-subscription-be",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vlasyb/Movies-Subscription-BE.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vlasyb/Movies-Subscription-BE/issues"
+  },
+  "homepage": "https://github.com/Vlasyb/Movies-Subscription-BE#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}
