@@ -1,9 +1,11 @@
 //Subscription backend server
-const mongoose = require("mongoose")
 const axios = require("axios")
-
 const Member = require("./models/memberModel")
 const Movie = require("./models/movieModel")
+
+const membersRouter = require("./routes/membersRouter")
+const moviesRouter = require("./routes/moviesRouter")
+const subscriptionsRouter = require("./routes/subscriptionsRouter")
 
 const express = require("express")
 const cors = require("cors")
@@ -54,6 +56,9 @@ const populateDB = async () => {
 }
 
 //Routers
+app.use("/members", membersRouter)
+app.use("/movies", moviesRouter)
+app.use("/subscriptions", subscriptionsRouter)
 
 const startServer = async () => {
 	try {
