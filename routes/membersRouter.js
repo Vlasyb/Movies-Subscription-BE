@@ -13,4 +13,15 @@ router.get("/", async (req, res) => {
 	}
 })
 
+router.get("/member/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		const member = await membersBLL.getMemberById(id)
+		res.status(200).json(member)
+	} catch (error) {
+		console.log("error ", error)
+		res.status.send(error.message)
+	}
+})
+
 module.exports = router

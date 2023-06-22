@@ -13,4 +13,15 @@ router.get("/", async (req, res) => {
 	}
 })
 
+router.get("/subscription/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		const subscription = await subscriptionsBLL.getSubscriptionById(id)
+		res.status(200).json(subscription)
+	} catch (error) {
+		console.log("error ", error)
+		res.status.send(error.message)
+	}
+})
+
 module.exports = router

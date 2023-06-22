@@ -6,6 +6,11 @@ const getAllSubscriptions = () => {
 	return Subscription.find({})
 }
 
+const getSubscriptionById = (id) => {
+	return Subscription.findOne({ _id: id })
+}
+
 module.exports = {
 	getAllSubscriptions,
+	getSubscriptionById,
 }
