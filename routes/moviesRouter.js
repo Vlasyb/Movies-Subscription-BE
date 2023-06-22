@@ -24,6 +24,18 @@ router.get("/movie/:id", async (req, res) => {
 	}
 })
 
+router.get("/nametoid/:name", async (req, res) => {
+	try {
+		const { name } = req.params
+		console.log(name)
+		const movieId = await moviesBLL.getMovieIdByName(name)
+		res.status(200).json(movieId)
+	} catch (error) {
+		console.log("error ", error)
+		res.status.send(error.message)
+	}
+})
+
 router.post("/", async (req, res) => {
 	try {
 		const obj = req.body

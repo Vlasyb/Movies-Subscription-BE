@@ -13,13 +13,19 @@ const addMovie = async (obj) => {
 	return "Movie Created"
 }
 
-const updateMember = async (id, obj) => {
-	await Member.findByIdAndUpdate(id, obj)
-	return "Updated Member"
+const updateMovie = async (id, obj) => {
+	await Movie.findByIdAndUpdate(id, obj)
+	return "Updated Movie"
+}
+
+const getMovieIdByName = async (givenName) => {
+	const movie = await Movie.findOne({ name: givenName })
+	return movie._id
 }
 
 module.exports = {
-	updateMember,
+	getMovieIdByName,
+	updateMovie,
 	addMovie,
 	getAllMovies,
 	getMovieById,
