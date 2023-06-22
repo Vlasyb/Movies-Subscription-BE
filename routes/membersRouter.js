@@ -24,4 +24,27 @@ router.get("/member/:id", async (req, res) => {
 	}
 })
 
+router.post("/", async (req, res) => {
+	try {
+		const obj = req.body
+		const result = await membersBLL.addMember(obj)
+		res.status(201).json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
+router.put("/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		const obj = req.body
+		result = await membersBLL.updateMember(id, obj)
+		res.status(201).json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
 module.exports = router

@@ -24,4 +24,27 @@ router.get("/movie/:id", async (req, res) => {
 	}
 })
 
+router.post("/", async (req, res) => {
+	try {
+		const obj = req.body
+		const result = await moviesBLL.addMovie(obj)
+		res.status(201).json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
+router.put("/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		const obj = req.body
+		result = await moviesBLL.updateMovie(id, obj)
+		res.status(201).json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
 module.exports = router
