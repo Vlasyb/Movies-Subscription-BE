@@ -36,6 +36,19 @@ router.get("/subscriptions/:memberId", async (req, res) => {
 		res.status(500).send(error.message)
 	}
 })
+//get all members watched + date for a movie
+router.get("/membersWatched/:movieId", async (req, res) => {
+	try {
+		const { movieId } = req.params
+		const membersWatched = await subscriptionsBLL.getSubscriptionsForMovieId(
+			movieId
+		)
+		res.status(200).json(membersWatched)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
 //subscribe a member to movie
 router.put("/subscribe/:movieId", async (req, res) => {
 	try {

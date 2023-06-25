@@ -33,6 +33,18 @@ const getSubscriptionsForMember = async (memberId) => {
 	return subscriptions
 }
 
+const getSubscriptionsForMovieId = async (movieId) => {
+	const subscriptions = await Subscription.find({ "movies.movieId": movieId })
+	const membersWatched = subscriptions.map((subscription) => {
+		const watchedMovie = subscription.movies.find(
+			(movie) => movieId === movie.movieId.toString()
+		)
+		return [subscription.memberId.toString(), watchedMovie.date]
+	})
+	console.log(membersWatched)
+	return membersWatched
+}
+
 const stringDateToTypeDate = (dateString) => {
 	const parts = dateString.split("/")
 	const day = parseInt(parts[0], 10) + 1 // maybe need to remove the +1
@@ -43,6 +55,7 @@ const stringDateToTypeDate = (dateString) => {
 }
 
 module.exports = {
+	getSubscriptionsForMovieId,
 	getSubscriptionsForMember,
 	subscribeToMovie,
 	getAllSubscriptions,

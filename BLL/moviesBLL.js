@@ -35,7 +35,19 @@ const getNonWatchedMoviesForMember = async (memberId) => {
 	return moviesResult
 }
 
+const getMoviesByPhrase = async (phrase) => {
+	const query = {
+		$or: [
+			{ genres: { $regex: phrase, $options: "i" } },
+			{ name: { $regex: phrase, $options: "i" } },
+		],
+	}
+	const movies = await Movie.find(query)
+	return movies
+}
+
 module.exports = {
+	getMoviesByPhrase,
 	getNonWatchedMoviesForMember,
 	getMovieIdByName,
 	updateMovie,

@@ -27,9 +27,20 @@ router.get("/movie/:id", async (req, res) => {
 router.get("/nametoid/:name", async (req, res) => {
 	try {
 		const { name } = req.params
-		console.log(name)
 		const movieId = await moviesBLL.getMovieIdByName(name)
 		res.status(200).json(movieId)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
+//get all movies by phrase (genres and name)
+router.get("/findmovie/:phrase", async (req, res) => {
+	try {
+		const { phrase } = req.params
+		const movies = await moviesBLL.getMoviesByPhrase(phrase)
+		res.status(200).json(movies)
 	} catch (error) {
 		console.log("error ", error)
 		res.status(500).send(error.message)
