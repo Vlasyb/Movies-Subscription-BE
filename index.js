@@ -12,7 +12,7 @@ const cors = require("cors")
 
 const connectDB = require("./configs/DB")
 const app = express()
-const port = 8001
+const port = 8036
 
 app.use(express.json())
 

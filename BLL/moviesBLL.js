@@ -1,4 +1,5 @@
 const Movie = require("../models/movieModel")
+const Subscription = require("../models/subscriptionModel")
 
 const getAllMovies = () => {
 	return Movie.find({})
@@ -23,7 +24,19 @@ const getMovieIdByName = async (givenName) => {
 	return movie._id
 }
 
+const getNonWatchedMoviesForMember = async (memberId) => {
+	const subscription = await Subscription.findOne({ memberId: memberId })
+	const movieIds = subscription.movies.map((movie) => {
+		return movie.movieId.toString()
+	})
+
+	console.log(movieIds)
+	const moviesResult = await Movie.find({ _id: { $nin: movieIds } })
+	return moviesResult
+}
+
 module.exports = {
+	getNonWatchedMoviesForMember,
 	getMovieIdByName,
 	updateMovie,
 	addMovie,

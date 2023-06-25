@@ -36,7 +36,7 @@ router.get("/subscriptions/:memberId", async (req, res) => {
 		res.status(500).send(error.message)
 	}
 })
-
+//subscribe a member to movie
 router.put("/subscribe/:movieId", async (req, res) => {
 	try {
 		const { movieId } = req.params

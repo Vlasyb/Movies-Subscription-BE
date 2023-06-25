@@ -20,7 +20,7 @@ router.get("/movie/:id", async (req, res) => {
 		res.status(200).json(movie)
 	} catch (error) {
 		console.log("error ", error)
-		res.status.send(error.message)
+		res.status(500).send(error.message)
 	}
 })
 
@@ -32,7 +32,18 @@ router.get("/nametoid/:name", async (req, res) => {
 		res.status(200).json(movieId)
 	} catch (error) {
 		console.log("error ", error)
-		res.status.send(error.message)
+		res.status(500).send(error.message)
+	}
+})
+
+router.get("/nonWatchedMovies/:memberId", async (req, res) => {
+	try {
+		const { memberId } = req.params
+		const movies = await moviesBLL.getNonWatchedMoviesForMember(memberId)
+		res.status(200).json(movies)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
 	}
 })
 

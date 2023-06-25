@@ -20,7 +20,7 @@ router.get("/member/:id", async (req, res) => {
 		res.status(200).json(member)
 	} catch (error) {
 		console.log("error ", error)
-		res.status.send(error.message)
+		res.status(500).send(error.message)
 	}
 })
 
