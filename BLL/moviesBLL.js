@@ -46,7 +46,36 @@ const getMoviesByPhrase = async (phrase) => {
 	return movies
 }
 
+const deleteMovie = async (id) => {
+	let result = "Deleted, no subscription found to movie"
+	await Movie.findByIdAndDelete(id)
+	const subscriptionsWithMovie = await Subscription.find({
+		"movies.movieId": id,
+	})
+	if (subscriptionsWithMovie.length > 0) {
+		const { modifiedCount } = await Subscription.updateMany(
+			{ "movies.movieId": id },
+			{ $pull: { movies: { movieId: id } } }
+		)
+		result = `Deleted, Removed from ${modifiedCount} subscriptions`
+		//if movies have 0 elements
+		const emptySubscriptions = await Subscription.deleteMany({
+			_id: {
+				$in: subscriptionsWithMovie.map((subscription) => subscription._id),
+			},
+			movies: { $exists: true, $eq: [] },
+		})
+
+		const { deletedCount } = emptySubscriptions
+		if (deletedCount > 0) {
+			result += `\n ${deletedCount} subscriptions deleted with no movies`
+		}
+	}
+	return result
+}
+
 module.exports = {
+	deleteMovie,
 	getMoviesByPhrase,
 	getNonWatchedMoviesForMember,
 	getMovieIdByName,

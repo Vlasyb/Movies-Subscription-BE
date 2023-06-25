@@ -81,4 +81,16 @@ router.put("/:id", async (req, res) => {
 	}
 })
 
+//delete movie + delete it in subscriptions if it exists
+router.delete("/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		result = await moviesBLL.deleteMovie(id)
+		res.json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
+
 module.exports = router
