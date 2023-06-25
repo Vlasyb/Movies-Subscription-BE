@@ -46,5 +46,16 @@ router.put("/:id", async (req, res) => {
 		res.status(500).send(error.message)
 	}
 })
+//delete member + his subscriptions
+router.delete("/:id", async (req, res) => {
+	try {
+		const { id } = req.params
+		result = await membersBLL.deleteMember(id)
+		res.json(result)
+	} catch (error) {
+		console.log("error ", error)
+		res.status(500).send(error.message)
+	}
+})
 
 module.exports = router
