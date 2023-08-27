@@ -5,6 +5,12 @@ const getAllMovies = () => {
 	return Movie.find({})
 }
 
+const getPaginatedMovies = async (page, limit) => {
+	const skipMovies = +page * +limit
+	const moviesList = await Movie.find().skip(skipMovies).limit(+limit)
+	return moviesList
+}
+
 const getMovieById = (id) => {
 	return Movie.findOne({ _id: id })
 }
@@ -68,7 +74,7 @@ const deleteMovie = async (id) => {
 
 		const { deletedCount } = emptySubscriptions
 		if (deletedCount > 0) {
-			result += `\n ${deletedCount} subscriptions deleted with no movies`
+			result += `, ${deletedCount} subscriptions deleted with no movies`
 		}
 	}
 	return result
@@ -83,4 +89,5 @@ module.exports = {
 	addMovie,
 	getAllMovies,
 	getMovieById,
+	getPaginatedMovies,
 }

@@ -8,7 +8,6 @@ const getAllMembers = () => {
 const getMemberById = (id) => {
 	return Member.findOne({ _id: id })
 }
-
 const addMember = async (obj) => {
 	const member = new Member(obj)
 	await member.save()

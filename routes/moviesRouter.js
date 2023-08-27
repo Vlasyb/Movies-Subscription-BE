@@ -13,6 +13,17 @@ router.get("/", async (req, res) => {
 	}
 })
 
+router.get("/getpaginatedmovies/:page/:limit", async (req, res) => {
+	try {
+		const { page, limit } = req.params
+		const moviesList = await moviesBLL.getPaginatedMovies(page, limit)
+		res.status(200).json(moviesList)
+	} catch (error) {
+		console.log("error: ", error)
+		res.status(500).send(error.message)
+	}
+})
+
 router.get("/movie/:id", async (req, res) => {
 	try {
 		const { id } = req.params
